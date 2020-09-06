@@ -1,14 +1,23 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+    <Myheader />
     <router-view />
   </div>
 </template>
 
+<script>
+import Myheader from "@/components/Myheader.vue";
+export default {
+  components: {
+    Myheader
+  }
+};
+</script>
 <style lang="scss">
+body {
+  margin: 0px;
+  padding: 0px;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -27,6 +36,18 @@
     &.router-link-exact-active {
       color: #42b983;
     }
+  }
+}
+
+header {
+  border-bottom: 1px solid black;
+  background-color: blue;
+  padding: 10px;
+  height: 70px;
+  a {
+    color: white;
+    font-size: 20px;
+    text-decoration: none;
   }
 }
 </style>
