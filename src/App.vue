@@ -32,7 +32,17 @@ export default {
             if (!userDoc.exists) {
               // DB 新規登録
               userRef.set({
-                events: []
+                userName: "",
+                bio: "こんにちわ",
+                lifedesign: [],
+                age: 20,
+                birth: {
+                  year: 2000,
+                  month: 1,
+                  day: 1
+                },
+                follow: [],
+                follower: []
               })
             } else {
               // DB すでに存在
