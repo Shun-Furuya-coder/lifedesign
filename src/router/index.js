@@ -1,10 +1,11 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
-import Profile from "../views/Profile.vue";
+import Vue from "vue"
+import VueRouter from "vue-router"
+import Home from "../views/Home.vue"
+import Profile from "../views/Profile.vue"
+import Login from "../views/Login.vue"
 import Edit from "../views/Edit.vue";
 
-Vue.use(VueRouter);
+Vue.use(VueRouter)
 
 const routes = [
   {
@@ -27,16 +28,22 @@ const routes = [
     component: Profile
   },
   {
+
+    path: "/login",
+    name: "Login",
+    component: Login
+  },
+  {
     path: "/profile/edit",
     name: "edit",
     component: Edit
   }
-];
+]
 
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes
-});
+})
 
-export default router;
+export default router
