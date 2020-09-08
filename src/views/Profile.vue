@@ -1,16 +1,35 @@
 <template>
   <div>
-    <img :src="user.image" alt="" width="100px" />
+    <div class="main-profile">
+      <div class="user-info">
+        <img :src="image" alt="" class="image-circle" />
+        <h4>{{ user.name }}</h4>
+        <h4>{{ user.id }}</h4>
+      </div>
+      <div class="follow-block">
+        <h3>Follow Followers</h3>
+        <h2>{{ user.follow.length }} {{ user.followers.length }}</h2>
+      </div>
+      <div class="edit-button">
+        <button>
+          <router-link to="/profile/edit">プロフィールを編集</router-link>
+        </button>
+      </div>
+      <div class="user-bio">
+        <h4>{{ user.bio }}</h4>
+      </div>
+    </div>
     <div class="bigbox">
       <div class="life-design__content">
         <div v-for="(event, index) in formatedEvents" v-bind:key="index">
           <div class="scroll-pointer">
-            <div class="circle">
+            <div class="time-line">
+              <h4>{{ event.age }} 歳</h4>
+              <div class="circle"></div>
               <div class="line"></div>
             </div>
-            <h4>{{ event.age }} 歳</h4>
-            <h3>{{ event.desc }}</h3>
           </div>
+          <h3>{{ event.desc }}</h3>
         </div>
       </div>
       <input type="number" v-model="edit.age" />
@@ -18,33 +37,6 @@
       <button v-on:click="add">add</button>
     </div>
   </div>
-  <!-- <div class="life-design">
-      <div class="life-design__content">
-        <div class="decade" v-for="(decade, index) in decades" :key="index">
-          <div class="scroll-pointer">
-            <div class="circle"></div>
-            <div class="line"></div>
-          </div>
-          <div>
-            <h3 class="decade__age">{{ formatedYears[index] }}</h3>
-            <div class="decade__contents">
-              <div class="decade__content" v-for="(item, i) in decade" :key="i">
-                <div class="test">
-                  <div class="left">
-                    <p>{{ item.age }} years old</p>
-                    <div></div>
-                  </div>
-                  <div class="right">
-                    <h3 class="title">{{ item.title }}</h3>
-                    <p class="description">{{ item.description }}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
 </template>
 
 <script>
@@ -57,8 +49,14 @@ export default {
         details: ""
       },
       user: {
-        name: "Shun",
+        name: "Shun Furuya",
         image: "https://images.app.goo.gl/ifUjnsxWFNuat6Uf6",
+        id: "@shun19990712",
+        bio:
+          "ここに自己紹介などを書き込む。1999/07/12 生まれ。21歳。プログラミングをやってます。",
+
+        follow: ["@yasunarle", "@shun1", "@shun2", "@shun3"],
+        followers: ["@yasunarle", "@shun1", "@shun2", "@shun3"],
 
         lifeDesign: [
           { age: 21, desc: "etc", color: "", details: "" },
@@ -71,37 +69,6 @@ export default {
           { age: 6, desc: "清水幼稚園", color: "", details: "" },
           { age: 12, desc: "清水小学校", color: "", details: "" }
         ]
-
-        // lifeDesign: {
-        //   one: {
-        //     start: 0,
-        //     end: 4,
-        //     desc: "沼津で生まれ育つ",
-        //     color: "",
-        //     details: ""
-        //   },
-        //   two: {
-        //     start: 4,
-        //     end: 6,
-        //     desc: "清水幼稚園",
-        //     color: "",
-        //     details: ""
-        //   },
-        //   three: {
-        //     start: 6,
-        //     end: 12,
-        //     desc: "清水小学校",
-        //     color: "",
-        //     details: ""
-        //   },
-        //   four: {
-        //     start: 12,
-        //     end: 21,
-        //     desc: "etc",
-        //     color: "",
-        //     details: ""
-        //   },
-        //}
       }
     };
   },
@@ -129,6 +96,42 @@ export default {
 </script>
 
 <style lang="scss">
+.main-profile {
+  width: 100%;
+  height: 350px;
+  .user-info {
+    width: 30%;
+    height: 100%;
+    float: left;
+    .image-circle {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 6px;
+      background: black;
+      border-radius: 50%;
+      margin: 20px;
+    }
+  }
+  .follow-block {
+    width: 50%;
+    height: 30%;
+    float: left;
+    text-align: left;
+    word-spacing: 80px;
+  }
+  .edit-button {
+    width: 20%;
+    height: 30%;
+    float: right;
+    text-align: center;
+  }
+  .user-bio {
+    width: 70%;
+    height: 70%;
+    float: left;
+    text-align: left;
+  }
+}
 .bigbox {
   max-width: 1000px;
   height: 800px;
@@ -165,68 +168,4 @@ export default {
     }
   }
 }
-// .life-design {
-//   height: 600px;
-//   max-width: 900px;
-//   margin: auto;
-//   padding: 10px;
-//   background: grey;
-//   overflow: auto;
-//   .life-design__content {
-//     width: 100%;
-//     height: 10000px;
-//     padding: 24px;
-//     box-sizing: border-box;
-//     text-align: left;
-//     background-color: whitesmoke;
-//     color: black;
-//     .decade {
-//       display: flex;
-//       flex-direction: row;
-//       .scroll-pointer {
-//         width: 16px;
-//         display: flex;
-//         flex-direction: column;
-//         padding-top: 6px;
-//         .circle {
-//           width: 16px;
-//           height: 16px;
-//           margin-bottom: 6px;
-//           background: black;
-//           border-radius: 50%;
-//         }
-//         .line {
-//           flex: 1;
-//           width: 2px;
-//           background: black;
-//           height: 100%;
-//           margin: auto;
-//         }
-//       }
-//       .decade__age {
-//         width: fit-content;
-//         margin-left: 30px;
-//         padding: 6px 20px;
-//         background: black;
-//         color: white;
-//       }
-//       .decade__contents {
-//         min-height: 100px;
-//         margin-bottom: 20px;
-//         .decade__content {
-//           padding: 30px 10px 0px 10px;
-//           .test {
-//             width: 100%;
-//             display: flex;
-//             flex-direction: row;
-//             .left {
-//               width: 130px;
-//               padding-right: 10px;
-//             }
-//           }
-//         }
-//       }
-//     }
-//   }
-// }
 </style>
