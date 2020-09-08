@@ -17,6 +17,7 @@ export default {
     login() {
       const provider = new firebase.auth.GoogleAuthProvider()
       firebase.auth().signInWithPopup(provider)
+      this.$router.push("/profile/edit")
     }
   }
 }
