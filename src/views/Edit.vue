@@ -2,11 +2,15 @@
   <div>
     <div class="main-edit">
       <div class="image-block">
-        <img :src="image" alt="" class="image-circle" />
+        <img :src="user.photoURL" alt="" class="image-circle" />
       </div>
       <div class="edit-block">
         <p>
-          名前：<input type="text" class="name-submit" v-model="user.name" />
+          名前：<input
+            type="text"
+            class="name-submit"
+            v-model="user.userName"
+          />
         </p>
         <p>
           生年月日：<input
@@ -26,7 +30,7 @@
         <p>
           コメント：<input type="text" class="bio-submit" v-model="user.bio" />
         </p>
-        <button class="submit-button">変更を保存</button>
+        <button class="submit-button" v-on:click="update">変更を保存</button>
       </div>
       <div class="blank"></div>
       <div class="life-edit-block">
@@ -55,45 +59,47 @@
 </template>
 
 <script>
+import firebase from "firebase";
 export default {
+  props: {
+    user: Object
+  },
   data() {
     return {
       edit: {
         age: null,
         desc: "",
         details: ""
-      },
-      user: {
-        name: "Shun Furuya",
-        image: "https://images.app.goo.gl/ifUjnsxWFNuat6Uf6",
-        id: "@shun19990712",
-        birth: { year: 1999, month: 7, day: 12 },
-        bio:
-          "ここに自己紹介などを書き込む。1999/07/12 生まれ。21歳。プログラミングをやってます。",
-
-        follow: ["@yasunarle", "@shun1", "@shun2", "@shun3"],
-        followers: ["@yasunarle", "@shun1", "@shun2", "@shun3"],
-
-        lifeDesign: [
-          { age: 21, desc: "etc", color: "", details: "" },
-          {
-            age: 4,
-            desc: "沼津で生まれ育つ",
-            color: "",
-            details: ""
-          },
-          { age: 6, desc: "清水幼稚園", color: "", details: "" },
-          { age: 12, desc: "清水小学校", color: "", details: "" }
-        ]
       }
+      // user: {
+      //   name: "Shun Furuya",
+      //   image: "https://images.app.goo.gl/ifUjnsxWFNuat6Uf6",
+      //   id: "@shun19990712",
+      //   birth: { year: 1999, month: 7, day: 12 },
+      //   bio:
+      //     "ここに自己紹介などを書き込む。1999/07/12 生まれ。21歳。プログラミングをやってます。",
+      //   follow: ["@yasunarle", "@shun1", "@shun2", "@shun3"],
+      //   followers: ["@yasunarle", "@shun1", "@shun2", "@shun3"],
+      //   lifeDesign: [
+      //     { age: 21, desc: "etc", color: "", details: "" },
+      //     {
+      //       age: 4,
+      //       desc: "沼津で生まれ育つ",
+      //       color: "",
+      //       details: ""
+      //     },
+      //     { age: 6, desc: "清水幼稚園", color: "", details: "" },
+      //     { age: 12, desc: "清水小学校", color: "", details: "" }
+      //   ]
+      // }
     };
   },
   computed: {
     formatedEvents() {
       let events = [];
-      events = this.user.lifeDesign.slice().sort(function(a, b) {
-        return a.age - b.age;
-      });
+      // events = this.user.lifeDesign.slice().sort(function(a, b) {
+      //   return a.age - b.age;
+      // });
       return events;
     }
   },
@@ -106,6 +112,16 @@ export default {
         details: ""
       };
       this.user.lifeDesign.push(event);
+    },
+    update() {
+      firebase
+        .firestore()
+        .collection("users")
+        .doc(this.user.uid)
+        .update({
+          userName: this.user.userName
+        });
+      alert("editted");
     }
   }
 };

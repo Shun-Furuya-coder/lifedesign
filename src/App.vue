@@ -1,14 +1,14 @@
 <template>
   <div id="app">
     <Myheader />
-    <router-view />
+    <router-view :user="user" />
   </div>
 </template>
 
 <script>
-import firebase from "firebase"
+import firebase from "firebase";
 // Components
-import Myheader from "@/components/Myheader.vue"
+import Myheader from "@/components/Myheader.vue";
 
 export default {
   components: {
@@ -17,7 +17,7 @@ export default {
   data() {
     return {
       user: {}
-    }
+    };
   },
   methods: {
     authState() {
@@ -27,7 +27,7 @@ export default {
           const userRef = firebase
             .firestore()
             .collection("users")
-            .doc(user.uid)
+            .doc(user.uid);
           userRef.get().then(userDoc => {
             if (!userDoc.exists) {
               // DB 新規登録
@@ -43,26 +43,26 @@ export default {
                 },
                 follow: [],
                 follower: []
-              })
+              });
             } else {
               // DB すでに存在
               this.user = {
                 ...user,
                 ...userDoc.data()
-              }
-              console.log(this.user)
+              };
+              console.log(this.user);
             }
-          })
+          });
         } else {
-          this.user = null
+          this.user = null;
         }
-      })
+      });
     }
   },
   created() {
-    this.authState()
+    this.authState();
   }
-}
+};
 </script>
 <style lang="scss">
 body {
