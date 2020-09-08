@@ -6,12 +6,53 @@
 </template>
 
 <script>
-import Myheader from "@/components/Myheader.vue";
+import firebase from "firebase"
+// Components
+import Myheader from "@/components/Myheader.vue"
+
 export default {
   components: {
     Myheader
+  },
+  data() {
+    return {
+      user: {}
+    }
+  },
+  methods: {
+    authState() {
+      // Auth
+      firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+          const userRef = firebase
+            .firestore()
+            .collection("users")
+            .doc(user.uid)
+          userRef.get().then(userDoc => {
+            if (!userDoc.exists) {
+              // DB 新規登録
+              userRef.set({
+                events: []
+              })
+            } else {
+              // DB すでに存在
+              this.user = {
+                ...user,
+                ...userDoc.data()
+              }
+              console.log(this.user)
+            }
+          })
+        } else {
+          this.user = null
+        }
+      })
+    }
+  },
+  created() {
+    this.authState()
   }
-};
+}
 </script>
 <style lang="scss">
 body {
