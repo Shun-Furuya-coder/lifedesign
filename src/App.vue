@@ -34,7 +34,7 @@ export default {
               userRef.set({
                 userName: "",
                 bio: "こんにちわ",
-                lifedesign: [],
+                lifeDesign: [],
                 age: 20,
                 birth: {
                   year: 2000,
@@ -42,7 +42,8 @@ export default {
                   day: 1
                 },
                 follow: [],
-                follower: []
+                follower: [],
+                userImageURL: user.photoURL
               });
             } else {
               // DB すでに存在
