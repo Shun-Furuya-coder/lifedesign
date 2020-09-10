@@ -35,9 +35,11 @@
       <div class="blank"></div>
       <div class="life-edit-block">
         <p>編集したい年を選んでください。</p>
-        <input type="number" class="age-add" v-model="edit.age" />歳
+        <input type="number" class="age-add" v-model="inputAge" />歳
         <p>見出しを書いてください。</p>
-        <input type="text" class="comment-add" v-model="edit.desc" />
+        <input type="text" class="comment-add" v-model="inputDesc" />
+        <p>ショートコメントを書いてください。</p>
+        <input type="text" class="comment-add" v-model="inputDetail" />
         <button class="add-button" v-on:click="add">追加</button>
       </div>
     </div>
@@ -66,11 +68,9 @@ export default {
   },
   data() {
     return {
-      edit: {
-        age: null,
-        desc: "",
-        details: ""
-      }
+      inputAge: 0,
+      inputDesc: "",
+      inputDetail: ""
       // user: {
       //   name: "Shun Furuya",
       //   image: "https://images.app.goo.gl/ifUjnsxWFNuat6Uf6",
@@ -96,22 +96,43 @@ export default {
   },
   computed: {
     formatedEvents() {
-      let events = [];
-      // events = this.user.lifeDesign.slice().sort(function(a, b) {
-      //   return a.age - b.age;
-      // });
-      return events;
+      if (this.user.lifeDesign.length >= 2) {
+        let events = [];
+        events = this.user.lifeDesign.slice().sort(function(a, b) {
+          return a.age - b.age;
+        });
+        return events;
+      } else {
+        return this.user.lifeDesign;
+      }
     }
   },
   methods: {
     add() {
       let event = {
-        age: this.edit.age,
-        desc: this.edit.desc,
-        color: "",
-        details: ""
+        age: Number(this.inputAge),
+        desc: this.inputDesc,
+        details: this.inputDetail
       };
-      this.user.lifeDesign.push(event);
+      // this.user.lifeDesign.push(event);
+      firebase
+        .firestore()
+        .collection("users")
+        .doc(this.user.uid)
+        .update({
+          lifeDesign: firebase.firestore.FieldValue.arrayUnion(event)
+        })
+        .then(() => {
+          this.$router.go({
+            path: this.$router.currentRoute.path,
+            force: true
+          });
+        });
+      // alert("complete");
+      this.inputAge = 0;
+      this.inputDesc = "";
+      this.inputDetail = "";
+      // console.log(typeof this.inputAge);
     },
     update() {
       firebase
@@ -119,9 +140,15 @@ export default {
         .collection("users")
         .doc(this.user.uid)
         .update({
-          userName: this.user.userName
+          userName: this.user.userName,
+          birth: {
+            day: this.user.birth.day,
+            month: this.user.birth.month,
+            year: this.user.birth.year
+          },
+          bio: this.user.bio
         });
-      alert("editted");
+      // alert("editted");
     }
   }
 };
