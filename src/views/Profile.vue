@@ -19,7 +19,7 @@
         <h4>{{ user.bio }}</h4>
       </div>
     </div>
-    <div class="bigbox">
+    <!-- <div class="bigbox">
       <div class="life-design__content">
         <div v-for="(event, index) in formatedEvents" v-bind:key="index">
           <div class="scroll-pointer">
@@ -35,6 +35,24 @@
       <input type="number" v-model="edit.age" />
       <input type="text" v-model="edit.desc" />
       <button v-on:click="add">add</button>
+    </div> -->
+    <div class="life-design-box">
+      <div class="design-paper">
+        <div v-for="(event, index) in formatedEvents" v-bind:key="index">
+          <div class="old-block">{{ event.age }}歳</div>
+          <div class="time-line">
+            <div class="circle-block"></div>
+            <div class="line-block"></div>
+          </div>
+          <div class="desc-block">
+            {{ event.desc }}
+          </div>
+          <div class="gap"></div>
+          <div class="detail-block">
+            {{ event.details }}
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -64,7 +82,7 @@ export default {
             age: 4,
             desc: "沼津で生まれ育つ",
             color: "",
-            details: ""
+            details: "元気な男の子だった。"
           },
           { age: 6, desc: "清水幼稚園", color: "", details: "" },
           { age: 12, desc: "清水小学校", color: "", details: "" }
@@ -132,39 +150,90 @@ export default {
     text-align: left;
   }
 }
-.bigbox {
-  max-width: 1000px;
-  height: 800px;
-  margin: auto;
-  border: 1px solid black;
-  background-color: rgb(126, 184, 250);
-  .life-design__content {
-    width: 100%;
-    height: 10000px;
-    padding: 24px;
-    box-sizing: border-box;
-    text-align: left;
-    background-color: rgb(129, 225, 255);
-    color: black;
-    .scroll-pointer {
-      width: 16px;
-      display: flex;
-      flex-direction: column;
-      padding-top: 6px;
-      .circle {
+// .bigbox {
+//   max-width: 1000px;
+//   height: 800px;
+//   margin: auto;
+//   border: 1px solid black;
+//   background-color: rgb(126, 184, 250);
+//   .life-design__content {
+//     width: 100%;
+//     height: 10000px;
+//     padding: 24px;
+//     box-sizing: border-box;
+//     text-align: left;
+//     background-color: rgb(129, 225, 255);
+//     color: black;
+//     .scroll-pointer {
+//       width: 16px;
+//       display: flex;
+//       flex-direction: column;
+//       padding-top: 6px;
+//       .circle {
+//         width: 30px;
+//         height: 30px;
+//         margin-bottom: 6px;
+//         background: rgb(248, 165, 165);
+//         border-radius: 50%;
+//       }
+//       .line {
+//         flex: 1;
+//         width: 2px;
+//         background: black;
+//         height: 100%;
+//         margin: auto;
+//       }
+//     }
+//   }
+// }
+
+.life-design-box {
+  width: 100%;
+  height: auto;
+  background-color: rgb(59, 177, 255);
+  float: left;
+  .design-paper {
+    padding-top: 80px;
+    width: 80%;
+    height: auto;
+    background-color: white;
+    float: left;
+    margin: 100px;
+    .old-block {
+      width: 15%;
+      height: 150px;
+      float: left;
+      text-align: right;
+      font-size: 20px;
+    }
+    .time-line {
+      width: 10%;
+      height: 150px;
+      float: left;
+      .circle-block {
         width: 30px;
         height: 30px;
-        margin-bottom: 6px;
         background: rgb(248, 165, 165);
         border-radius: 50%;
       }
-      .line {
-        flex: 1;
-        width: 2px;
-        background: black;
-        height: 100%;
-        margin: auto;
-      }
+    }
+    .desc-block {
+      width: 70%;
+      height: 65px;
+      float: left;
+      text-align: left;
+      font-size: 20px;
+    }
+    .gap {
+      width: 10%;
+      height: 85px;
+      float: left;
+    }
+    .detail-block {
+      width: 60%;
+      height: 85px;
+      float: left;
+      text-align: left;
     }
   }
 }
