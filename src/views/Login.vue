@@ -6,21 +6,21 @@
   </div>
 </template>
 <script>
-import firebase from "firebase"
+import firebase from "firebase";
 export default {
   data() {
     return {
       user: {}
-    }
+    };
   },
   methods: {
     login() {
-      const provider = new firebase.auth.GoogleAuthProvider()
-      firebase.auth().signInWithPopup(provider)
-      this.$router.push("/profile/edit")
+      const provider = new firebase.auth.GoogleAuthProvider();
+      firebase.auth().signInWithPopup(provider);
+      this.$router.push("/profile/edit");
     }
   }
-}
+};
 </script>
 <style lang="scss">
 .login {

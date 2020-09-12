@@ -6,6 +6,8 @@ import Login from "../views/Login.vue";
 import Edit from "../views/Edit.vue";
 import Users from "../views/Users.vue";
 import User from "../views/User.vue";
+import Follow from "../views/Follow.vue";
+import Follower from "../views/Follower.vue";
 
 Vue.use(VueRouter);
 
@@ -48,6 +50,16 @@ const routes = [
     path: "/user/:id",
     name: "User",
     component: User
+  },
+  {
+    path: "/user/:id/follow",
+    name: "Follow",
+    component: Follow
+  },
+  {
+    path: "/user/:id/follower",
+    name: "Follower",
+    component: Follower
   }
 ];
 
