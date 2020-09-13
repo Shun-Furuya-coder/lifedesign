@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import firebase from "firebase";
+import firebase from "firebase"
 
 export default {
   props: {
@@ -76,7 +76,7 @@ export default {
     return {
       pageUser: {},
       isMe: false
-    };
+    }
   },
   created() {
     firebase
@@ -87,23 +87,23 @@ export default {
         this.pageUser = {
           id: doc.id,
           ...doc.data()
-        };
-      });
+        }
+      })
 
     if (this.user.uid == this.$route.params.id) {
-      this.isMe = true;
+      this.isMe = true
     }
-    console.log(this.user.uid);
-    console.log(this.$route.params.id);
+    console.log(this.user.uid)
+    console.log(this.$route.params.id)
   },
   computed: {
     isOther() {
       for (const followerId of this.pageUser.follower) {
         if (followerId === this.user.uid) {
-          return false;
+          return false
         }
       }
-      return true;
+      return true
     }
   },
   methods: {
@@ -114,7 +114,7 @@ export default {
         .doc(this.$route.params.id)
         .update({
           follower: firebase.firestore.FieldValue.arrayUnion(this.user.uid)
-        });
+        })
 
       firebase
         .firestore()
@@ -124,7 +124,7 @@ export default {
           follow: firebase.firestore.FieldValue.arrayUnion(
             this.$route.params.id
           )
-        });
+        })
     },
 
     unfollow() {
@@ -134,7 +134,7 @@ export default {
         .doc(this.$route.params.id)
         .update({
           follower: firebase.firestore.FieldValue.arrayRemove(this.user.uid)
-        });
+        })
 
       firebase
         .firestore()
@@ -144,10 +144,10 @@ export default {
           follow: firebase.firestore.FieldValue.arrayRemove(
             this.$route.params.id
           )
-        });
+        })
     }
   }
-};
+}
 </script>
 
 <style lang="scss">
