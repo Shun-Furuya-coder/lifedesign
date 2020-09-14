@@ -90,16 +90,4 @@ body {
     }
   }
 }
-
-header {
-  border-bottom: 1px solid black;
-  background-color: blue;
-  padding: 10px;
-  height: 70px;
-  a {
-    color: white;
-    font-size: 20px;
-    text-decoration: none;
-  }
-}
 </style>
