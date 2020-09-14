@@ -2,14 +2,10 @@
   <div>
     <div class="main-profile">
       <div class="main-left">
-        <img :src="pageUser.userImageURL" alt="" class="photo-box" />
+        <img :src="pageUser.userImageURL" alt class="photo-box" />
         <div class="name-box">
-          <h2>
-            {{ pageUser.userName }}
-          </h2>
-          <h4>
-            {{ $route.params.id }}
-          </h4>
+          <h2>{{ pageUser.userName }}</h2>
+          <h4>{{ $route.params.id }}</h4>
         </div>
       </div>
       <div class="main-right">
@@ -21,9 +17,7 @@
             </router-link>
           </div>
           <div class="right-follower">
-            <router-link
-              :to="{ name: 'Follower', params: { id: pageUser.id } }"
-            >
+            <router-link :to="{ name: 'Follower', params: { id: pageUser.id } }">
               <h2>Follower</h2>
               <h2 class="text-type">{{ pageUser.follower.length }}</h2>
             </router-link>
@@ -31,17 +25,11 @@
         </div>
         <div class="button-block">
           <div v-if="!isMe">
-            <button class="button-type" v-if="isOther" v-on:click="follow">
-              フォローする
-            </button>
-            <button class="button-type" v-else v-on:click="unfollow">
-              フォローを外す
-            </button>
+            <button class="button-type" v-if="isOther" v-on:click="follow">フォローする</button>
+            <button class="button-type" v-else v-on:click="unfollow">フォローを外す</button>
           </div>
         </div>
-        <div class="bio-block">
-          {{ user.bio }}
-        </div>
+        <div class="bio-block">{{ user.bio }}</div>
       </div>
     </div>
     <!-- <div class="bigbox">
@@ -57,7 +45,7 @@
           <h3>{{ event.desc }}</h3>
         </div>
       </div>
-    </div> -->
+    </div>-->
     <div class="past-future">
       <button class="switch-button" v-on:click="toPast">Past</button>
       <button class="switch-button" v-on:click="toFuture">Future</button>
@@ -70,13 +58,9 @@
             <div class="circle-block"></div>
             <div class="line-block"></div>
           </div>
-          <div class="desc-block">
-            {{ event.desc }}
-          </div>
+          <div class="desc-block">{{ event.desc }}</div>
           <div class="gap"></div>
-          <div class="detail-block">
-            {{ event.details }}
-          </div>
+          <div class="detail-block">{{ event.details }}</div>
         </div>
       </div>
     </div>
@@ -97,7 +81,7 @@ export default {
       isPast: true,
       past: [],
       future: []
-    };
+    }
   },
   created() {
     firebase
@@ -108,15 +92,15 @@ export default {
         this.pageUser = {
           id: doc.id,
           ...doc.data()
-        };
+        }
         for (const one of this.pageUser.lifeDesign) {
           if (one.age <= this.pageUser.age) {
-            this.past.push(one);
+            this.past.push(one)
           } else {
-            this.future.push(one);
+            this.future.push(one)
           }
         }
-      });
+      })
 
     if (this.user.uid == this.$route.params.id) {
       this.isMe = true
@@ -124,27 +108,27 @@ export default {
   },
   computed: {
     isOther() {
-      for (const followerId of this.pageUser.follower) {
-        if (followerId === this.user.uid) {
+      for (const follower of this.pageUser.follower) {
+        if (follower.id === this.user.uid) {
           return false
         }
       }
-      return true;
+      return true
     },
 
     formatedEvents() {
       if (this.isPast) {
-        let events = [];
+        let events = []
         events = this.past.slice().sort(function(a, b) {
-          return a.age - b.age;
-        });
-        return events;
+          return a.age - b.age
+        })
+        return events
       } else {
-        let events = [];
+        let events = []
         events = this.future.slice().sort(function(a, b) {
-          return a.age - b.age;
-        });
-        return events;
+          return a.age - b.age
+        })
+        return events
       }
     }
   },
@@ -155,7 +139,10 @@ export default {
         .collection("users")
         .doc(this.$route.params.id)
         .update({
-          follower: firebase.firestore.FieldValue.arrayUnion(this.user.uid)
+          follower: firebase.firestore.FieldValue.arrayUnion({
+            id: this.user.uid,
+            userName: this.user.userName
+          })
         })
 
       firebase
@@ -163,9 +150,10 @@ export default {
         .collection("users")
         .doc(this.user.uid)
         .update({
-          follow: firebase.firestore.FieldValue.arrayUnion(
-            this.$route.params.id
-          )
+          follow: firebase.firestore.FieldValue.arrayUnion({
+            id: this.$route.params.id,
+            userName: this.pageUser.userName
+          })
         })
     },
 
@@ -175,7 +163,10 @@ export default {
         .collection("users")
         .doc(this.$route.params.id)
         .update({
-          follower: firebase.firestore.FieldValue.arrayRemove(this.user.uid)
+          follower: firebase.firestore.FieldValue.arrayRemove({
+            id: this.user.uid,
+            userName: this.user.userName
+          })
         })
 
       firebase
@@ -183,16 +174,17 @@ export default {
         .collection("users")
         .doc(this.user.uid)
         .update({
-          follow: firebase.firestore.FieldValue.arrayRemove(
-            this.$route.params.id
-          )
-        });
+          follow: firebase.firestore.FieldValue.arrayRemove({
+            id: this.$route.params.id,
+            userName: this.pageUser.userName
+          })
+        })
     },
     toPast() {
-      this.isPast = true;
+      this.isPast = true
     },
     toFuture() {
-      this.isPast = false;
+      this.isPast = false
     }
   }
 }

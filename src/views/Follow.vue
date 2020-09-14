@@ -1,35 +1,26 @@
 <template>
   <div>
     <h1>Follow</h1>
-    <!-- <div v-for="(user, index) in users" :key="index">
+    <div v-for="(user, index) in pageUser.follow" :key="index">
       <div class="big-box">
         <router-link :to="{ name: 'User', params: { id: user.id } }">
           <div class="user-box">
             <div class="image-block">
-              <img :src="user.userImageURL" alt="" class="image-circle" />
+              <img :src="user.userImageURL" alt class="image-circle" />
             </div>
             <div class="name-block">
               {{ user.userName }}
-              <div class="id-font">
-                {{ user.id }}
-              </div>
-            </div>
-            <div class="other-block">
-              Follow: {{ user.follow.length }}
-              <div>Followers: {{ user.follower.length }}</div>
+              <div class="id-font">{{ user.id }}</div>
             </div>
           </div>
         </router-link>
       </div>
-    </div> -->
-    <div v-for="(userId, index) in pageUser.follow" :key="index">
-      {{ userId }}
     </div>
   </div>
 </template>
 
 <script>
-import firebase from "firebase";
+import firebase from "firebase"
 
 export default {
   props: {
@@ -39,7 +30,7 @@ export default {
     return {
       pageUser: {},
       other: false
-    };
+    }
   },
   created() {
     firebase
@@ -48,10 +39,10 @@ export default {
       .doc(this.$route.params.id)
       .get()
       .then(doc => {
-        this.pageUser = doc.data();
-      });
+        this.pageUser = doc.data()
+      })
   }
-};
+}
 </script>
 
 <style lang="scss">
