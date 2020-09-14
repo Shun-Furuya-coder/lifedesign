@@ -49,7 +49,7 @@ export default {
 <style lang="scss">
 .home {
   width: 100%;
-  min-height: 800px;
+  min-height: 950px;
   position: relative;
   background-image: url("../assets/LifeDesign.jpg");
   background-size: cover;

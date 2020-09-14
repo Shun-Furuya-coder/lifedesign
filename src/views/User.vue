@@ -40,7 +40,7 @@
           </div>
         </div>
         <div class="bio-block">
-          {{ user.bio }}
+          {{ pageUser.bio }}
         </div>
       </div>
     </div>
@@ -97,7 +97,7 @@ export default {
       isPast: true,
       past: [],
       future: []
-    };
+    }
   },
   created() {
     firebase
@@ -108,15 +108,15 @@ export default {
         this.pageUser = {
           id: doc.id,
           ...doc.data()
-        };
+        }
         for (const one of this.pageUser.lifeDesign) {
           if (one.age <= this.pageUser.age) {
-            this.past.push(one);
+            this.past.push(one)
           } else {
-            this.future.push(one);
+            this.future.push(one)
           }
         }
-      });
+      })
 
     if (this.user.uid == this.$route.params.id) {
       this.isMe = true
@@ -129,22 +129,22 @@ export default {
           return false
         }
       }
-      return true;
+      return true
     },
 
     formatedEvents() {
       if (this.isPast) {
-        let events = [];
+        let events = []
         events = this.past.slice().sort(function(a, b) {
-          return a.age - b.age;
-        });
-        return events;
+          return a.age - b.age
+        })
+        return events
       } else {
-        let events = [];
+        let events = []
         events = this.future.slice().sort(function(a, b) {
-          return a.age - b.age;
-        });
-        return events;
+          return a.age - b.age
+        })
+        return events
       }
     }
   },
@@ -186,13 +186,13 @@ export default {
           follow: firebase.firestore.FieldValue.arrayRemove(
             this.$route.params.id
           )
-        });
+        })
     },
     toPast() {
-      this.isPast = true;
+      this.isPast = true
     },
     toFuture() {
-      this.isPast = false;
+      this.isPast = false
     }
   }
 }
@@ -261,7 +261,7 @@ export default {
       }
     }
     .bio-block {
-      width: 100%;
+      width: 70%;
       height: 60%;
       float: left;
       text-align: left;
