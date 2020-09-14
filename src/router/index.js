@@ -1,15 +1,14 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
-import Profile from "../views/Profile.vue";
-import Login from "../views/Login.vue";
-import Edit from "../views/Edit.vue";
-import Users from "../views/Users.vue";
-import User from "../views/User.vue";
-import Follow from "../views/Follow.vue";
-import Follower from "../views/Follower.vue";
+import Vue from "vue"
+import VueRouter from "vue-router"
+import Home from "../views/Home.vue"
+import Profile from "../views/Profile.vue"
+import Edit from "../views/Edit.vue"
+import Users from "../views/Users.vue"
+import User from "../views/User.vue"
+import Follow from "../views/Follow.vue"
+import Follower from "../views/Follower.vue"
 
-Vue.use(VueRouter);
+Vue.use(VueRouter)
 
 const routes = [
   {
@@ -30,11 +29,6 @@ const routes = [
     path: "/profile",
     name: "profile",
     component: Profile
-  },
-  {
-    path: "/login",
-    name: "Login",
-    component: Login
   },
   {
     path: "/profile/edit",
@@ -61,12 +55,12 @@ const routes = [
     name: "Follower",
     component: Follower
   }
-];
+]
 
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes
-});
+})
 
-export default router;
+export default router

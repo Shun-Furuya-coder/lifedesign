@@ -84,7 +84,7 @@
 </template>
 
 <script>
-import firebase from "firebase";
+import firebase from "firebase"
 
 export default {
   props: {
@@ -119,14 +119,14 @@ export default {
       });
 
     if (this.user.uid == this.$route.params.id) {
-      this.isMe = true;
+      this.isMe = true
     }
   },
   computed: {
     isOther() {
       for (const followerId of this.pageUser.follower) {
         if (followerId === this.user.uid) {
-          return false;
+          return false
         }
       }
       return true;
@@ -156,7 +156,7 @@ export default {
         .doc(this.$route.params.id)
         .update({
           follower: firebase.firestore.FieldValue.arrayUnion(this.user.uid)
-        });
+        })
 
       firebase
         .firestore()
@@ -166,7 +166,7 @@ export default {
           follow: firebase.firestore.FieldValue.arrayUnion(
             this.$route.params.id
           )
-        });
+        })
     },
 
     unfollow() {
@@ -176,7 +176,7 @@ export default {
         .doc(this.$route.params.id)
         .update({
           follower: firebase.firestore.FieldValue.arrayRemove(this.user.uid)
-        });
+        })
 
       firebase
         .firestore()
@@ -195,7 +195,7 @@ export default {
       this.isPast = false;
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
