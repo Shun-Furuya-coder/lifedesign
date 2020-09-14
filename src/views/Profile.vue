@@ -135,31 +135,31 @@ export default {
       //     { age: 12, desc: "清水小学校", color: "", details: "" }
       //   ]
       // }
-    };
+    }
   },
   created() {
     for (const one of this.user.lifeDesign) {
       if (one.age <= this.user.age) {
-        this.past.push(one);
+        this.past.push(one)
       } else {
-        this.future.push(one);
+        this.future.push(one)
       }
     }
   },
   computed: {
     formatedEvents() {
       if (this.isPast) {
-        let events = [];
+        let events = []
         events = this.past.slice().sort(function(a, b) {
-          return a.age - b.age;
-        });
-        return events;
+          return a.age - b.age
+        })
+        return events
       } else {
-        let events = [];
+        let events = []
         events = this.future.slice().sort(function(a, b) {
-          return a.age - b.age;
-        });
-        return events;
+          return a.age - b.age
+        })
+        return events
       }
     }
   },
@@ -170,17 +170,17 @@ export default {
         desc: this.edit.desc,
         color: "",
         details: ""
-      };
-      this.user.lifeDesign.push(event);
+      }
+      this.user.lifeDesign.push(event)
     },
     toPast() {
-      this.isPast = true;
+      this.isPast = true
     },
     toFuture() {
-      this.isPast = false;
+      this.isPast = false
     }
   }
-};
+}
 </script>
 
 <style lang="scss">
@@ -279,13 +279,14 @@ export default {
         width: 40%;
         height: 30%;
         font-size: 15px;
+        font-weight: bold;
         .text {
           color: white;
         }
       }
     }
     .bio-block {
-      width: 100%;
+      width: 70%;
       height: 60%;
       float: left;
       text-align: left;
@@ -337,6 +338,8 @@ export default {
     height: 30px;
     background-color: rgb(59, 177, 255);
     color: white;
+    font-size: 15px;
+    font-weight: bold;
   }
 }
 .life-design-box {

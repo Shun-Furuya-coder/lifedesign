@@ -29,7 +29,9 @@
             <button class="button-type" v-else v-on:click="unfollow">フォローを外す</button>
           </div>
         </div>
-        <div class="bio-block">{{ user.bio }}</div>
+        <div class="bio-block">
+          {{ pageUser.bio }}
+        </div>
       </div>
     </div>
     <!-- <div class="bigbox">
@@ -253,7 +255,7 @@ export default {
       }
     }
     .bio-block {
-      width: 100%;
+      width: 70%;
       height: 60%;
       float: left;
       text-align: left;
